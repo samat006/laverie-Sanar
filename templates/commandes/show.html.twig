@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">Compte</h1>
+			<a href="/logout">
+				<i class="fa fa-power-off fa-1x text-primary"></i>
+			</a>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					{% if app.user %}
+						<li class="breadcrumb-item text-white active" aria-current="page">{{app.user.prenom}}
+							{{app.user.nom}}</li>
+					{% endif %}
+					<li class="breadcrumb-item text-white active" aria-current="page">Commandes</li>
+				</ol>
+				{% if app.user %}
+					<p class="">{{app.user.email}}</p>
+				{% endif %}
+			</nav>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="col-lg-10">
+			<h5 class="section-title ff-secondary text-start text-primary fw-normal">Commandes
+				<img src="{{ asset('assets/img/logo.png') }}" style="height:50px" alt="Logo"></h5>
+			<h1 class="mb-4">{{ commande.articleid ? commande.articleid: "Commande"}}
+				du
+				{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</h1>
+			<div class="row g-4 mb-4">
+				<div class="col-sm-6">
+					<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+						<div class="ps-4">
+							<p class="mb-0">Statut:
+							</p>
+							<h6 class="fw-normal mb-0 ff-secondary">{{ commande.statut }}</h6>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+						<div class="ps-4">
+							<p class="mb-0">Date de création:
+							</p>
+							<h6 class="mb-0 ff-secondary">{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</h6>
+						</div>
+					</div>
+				</div>
+				{% if is_granted('ROLE_EMPLOYER') %}
+					<div class="col-sm-6">
+						<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+							<div class="ps-4">
+								<p class="mb-0">Date de mise à jour:
+								</p>
+								<h6 class="mb-0 ff-secondary">{{ commande.dateupdate ? commande.dateupdate|date('Y-m-d H:i:s') : 'Non défini' }}</h6>
+							</div>
+						</div>
+					</div>
+
+				{% endif %}
+			</div>
+			{{ include('commandes/_delete_form.html.twig') }}
+		</div>
+	</div>
+
+{% endblock %}

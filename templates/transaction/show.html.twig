@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transaction
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">Compte</h1>
+			<a href="/logout">
+				<i class="fa fa-power-off fa-1x text-primary"></i>
+			</a>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					{% if app.user %}
+						<li class="breadcrumb-item text-white active" aria-current="page">{{app.user.prenom}}
+							{{app.user.nom}}</li>
+					{% endif %}
+					<li class="breadcrumb-item text-white active" aria-current="page">Transaction</li>
+				</ol>
+				{% if app.user %}
+					<p class="">{{app.user.email}}</p>
+				{% endif %}
+			</nav>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="col-lg-10">
+			<h5 class="section-title ff-secondary text-start text-primary fw-normal">transactions
+				<img src="{{ asset('assets/img/logo.png') }}" style="height:50px" alt="Logo"></h5>
+			{% if is_granted('ROLE_EMPLOYER') %}
+				<h1 class="mb-4">transaction de la
+					{{ transaction.commandeid }}
+					pour
+					{{ transaction.clientid }}</h1>
+			{% else %}
+				<h1 class="mb-4">transaction de la
+					{{ transaction.commandeid }}</h1>
+			{% endif %}
+			<div class="row g-4 mb-4">
+				<div class="col-sm-6">
+					<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+						<div class="ps-4">
+							<p class="mb-0">Date:
+							</p>
+							<h6 class="fw-normal mb-0 ff-secondary">
+								{{ transaction.date ? transaction.date|date('Y-m-d') : 'Non définie' }}</h6>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+						<div class="ps-4">
+							<p class="mb-0">Montant: :
+							</p>
+							<h6 class="mb-0 ff-secondary">{{ transaction.montant ? transaction.montant : 'Non défini'}}</h6>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+						<div class="ps-4">
+							<p class="mb-0">Mode de paiement:
+							</p>
+							<h6 class="mb-0 ff-secondary">{{ transaction.modepaiement ? transaction.modepaiement : 'Non défini'}}</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{ include('transaction/_delete_form.html.twig') }}
+		</div>
+	</div>
+
+{% endblock %}

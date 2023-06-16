@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header mb-5">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">Compte</h1>
+			<a href="/logout">
+				<i class="fa fa-power-off fa-1x text-primary"></i>
+			</a>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					{% if app.user %}
+						<li class="breadcrumb-item text-white active" aria-current="page">{{app.user.prenom}}
+							{{app.user.nom}}</li>
+					{% endif %}
+				</ol>
+				{% if app.user %}
+					<p class="">{{app.user.email}}</p>
+				{% endif %}
+			</nav>
+		</div>
+	</div>
+	<!-- Actions Start -->
+	<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes affaires</h5>
+				<h1 class="mb-5">Mes actions sur SanarLav</h1>
+			</div>
+			<div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+				<ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+							<i class="fa fa-shopping-basket fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes demandes</small>
+								<h6 class="mt-n1 mb-0">Commandes</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+							<i class="fa fa-gavel fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes retours</small>
+								<h6 class="mt-n1 mb-0">Réclammations</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+							<i class="fa fa-credit-card fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes transactions</small>
+								<h6 class="mt-n1 mb-0">Paiements & Abonnement</h6>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane fade show p-0 active">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/commandes/new">Faire une commande</a>
+							</div>
+							{% if commandes is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-danger">Aucune commande</h1>
+								</div>
+							{% endif %}
+							{% for commande in commandes %}
+								<div class="col-lg-6 border-end border-5 border-primary">
+									<div class="d-flex align-items-center">
+										<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+										<div class="w-100 d-flex flex-column text-start ps-4">
+											<h5 class="d-flex justify-content-between border-bottom pb-2">
+												<span class="border-end border-2 border-secondary">Commande -
+													{{commande.date| date('d-m-Y')}}</span>
+												<span class="text-primary">{{commande.articleid}}</span>
+											</h5>
+											<small class="fst-italic">{{commande.statut}}</small>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/reparations/new">Faire une réclamation</a>
+							</div>
+							{% if reparations is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-4.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-danger">Aucune réclamation</h1>
+								</div>
+							{% endif %}
+							{% for reparation in reparations %}
+								<div class="col-lg-6 border-end border-5 border-primary">
+									<div class="d-flex align-items-center">
+										<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-4.png') }}" alt="" style="width: 80px;">
+										<div class="w-100 d-flex flex-column text-start ps-4">
+											<h5 class="d-flex justify-content-between border-bottom pb-2">
+												<span class="border-end border-2 border-secondary">Réclamation -
+													{{reparation.date| date('d-m-Y')}}</span>
+												<span class="text-primary">{{reparation.commandeid}}
+													FCFA</span>
+											</h5>
+											<small class="fst-italic d-flex justify-content-between">
+												<span>{{reparation.description}}</span>
+												<span>{{reparation.statut}}</span>
+											</small>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div id="tab-3" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/abonnements/new">Prendre un abonnement ...</a>
+							</div>
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes transactions</h5>
+							</div>
+							{% if transactions is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-danger">Aucune transaction</h1>
+								</div>
+							{% endif %}
+							{% for transaction in transactions %}
+								<div class="col-lg-6 border-end border-5 border-primary">
+									<div class="d-flex align-items-center">
+										<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+										<div class="w-100 d-flex flex-column text-start ps-4">
+											<h5 class="d-flex justify-content-between border-bottom pb-2">
+												<span class="border-end border-2 border-secondary">Transaction -
+													{{transaction.date| date('d-m-Y')}}</span>
+												<span class="text-primary">{{transaction.montant}}</span>
+											</h5>
+											<small class="fst-italic">{{transaction.modepaiement}}</small>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes abonnements</h5>
+							</div>
+							{% if abonnements is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-danger">Aucun abonnement</h1>
+								</div>
+							{% endif %}
+							{% for abonnement in abonnements %}
+								<div class="col-lg-6 border-end border-5 border-primary">
+									<div class="d-flex align-items-center">
+										<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+										<div class="w-100 d-flex flex-column text-start ps-4">
+											<h5 class="d-flex justify-content-between border-bottom pb-2">
+												<span class="border-end border-2 border-secondary">
+													{{abonnement}}</span>
+												<span class="text-primary">{{abonnement.type}}</span>
+											</h5>
+											<small class="fst-italic">{{abonnement.statut}}</small>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Actions End -->
+
+{% endblock %}

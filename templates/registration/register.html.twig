@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">Inscription</h1>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="/login">Authentification</a>
+					</li>
+					<li class="breadcrumb-item text-white active" aria-current="page">Inscription</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+
+	<!-- Container Form Registration Start -->
+	<div class="container-xxl pb-5 px-0 wow fadeInUp" data-wow-delay="0.1s" id="poidsprix">
+		<div class="row g-0">
+			<div class="col-lg-6">
+				<div class="imagelogin">
+					<span></span>
+				</div>
+			</div>
+			<div class="col-lg-6 bg-dark d-flex align-items-center">
+				<div class="p-5 col-12 wow fadeInUp" data-wow-delay="0.2s">
+					<h5 class="section-title ff-secondary text-start text-primary fw-normal">Authentification</h5>
+					<h1 class="text-white mb-4">Veuillez créer votre compte</h1>
+					<div class="row g-3">
+						{{ form_start(registrationForm) }}
+                        
+                            {{ form_errors(registrationForm.email) }}
+                            {{ form_errors(registrationForm.agreeTerms) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+							<div class="row justify-content-center align-items-center">
+								<div class="col-md-6 py-3">
+									<div class="form-floating">
+										<input type="text" name="{{ field_name(registrationForm.prenom) }}" id="inputPrenom" class="form-control" placeholder="Prenom" autocomplete="Prenom" required autofocus>
+										<label for="inputPrenom">Prenom</label>
+									</div>
+								</div>
+								<div class="col-md-6 py-3">
+									<div class="form-floating">
+										<input type="text" name="{{ field_name(registrationForm.nom) }}" id="inputNom" class="form-control" placeholder="Nom" autocomplete="nom" required autofocus>
+										<label for="inputNom">Nom</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 py-3">
+								<div class="form-floating">
+									<input type="email" name="{{ field_name(registrationForm.email) }}" id="inputEmail" class="form-control" placeholder="Email" autocomplete="email" required autofocus>
+									<label for="inputEmail">Email</label>
+								</div>
+							</div>
+							<div class="col-md-12 py-3">
+								<div class="form-floating">
+									<input type="tel" name="{{ field_name(registrationForm.tel) }}" id="inputTel" class="form-control" placeholder="Tel" autocomplete="Tel">
+									<label for="inputTel">Tel</label>
+								</div>
+							</div>
+							<div class="col-md-12 py-3">
+								<div class="form-floating">
+									<input type="text" name="{{ field_name(registrationForm.adresse) }}" id="inputAdresse" class="form-control" placeholder="Adresse" autocomplete="Adresse">
+									<label for="inputAdresse">Adresse</label>
+								</div>
+							</div>
+							<div class="col-md-12 py-3">
+								<div class="form-floating">
+									<input type="password" name="{{ field_name(registrationForm.plainPassword) }}" id="inputPassword" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required>
+									<label for="inputPassword">Mot de Passe</label>
+								</div>
+							</div>
+							<div class="col-md-12 py-3">
+								<div class="form-floating">
+									<input type="password" name="{{ field_name(registrationForm.replainPassword) }}" id="inputPassword" class="form-control" placeholder="Mot de passe" autocomplete="current-password" required>
+									<label for="inputPassword">Confirmation mot de Passe</label>
+								</div>
+							</div>
+                            
+                            
+                            <input type="hidden" name="{{ field_name(registrationForm.roles) }}" value="ROLE_CLIENT">
+
+							<input type="checkbox" id="agreeTerms" name="{{ field_name(registrationForm.agreeTerms) }}" value="1" {{ registrationForm.agreeTerms.vars.checked ? ' checked' : '' }} checked>
+							<label for="agreeTerms">J'accepte les termes et conditions</label>
+
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+							<div class="row justify-content-center align-items-center">
+								<div class="col-lg-6  py-3">
+									<button class="btn btn-primary w-100 py-3" type="submit">Créer un compte</button>
+								</div>
+								<div class="col-lg-6 text-center py-3">
+									<a href="/login">J'ai déja un compte</a>
+								</div>
+							</div>
+						{{ form_end(registrationForm) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Container Form Registration End -->
+
+{% endblock %}

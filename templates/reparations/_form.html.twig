@@ -1,0 +1,70 @@
+<!-- Container Form Réparations Start -->
+<div class="container-xxl pb-5 px-0 wow fadeInUp" data-wow-delay="0.1s" id="">
+	<div class="row g-0">
+		<div class="col-lg-6">
+			<div class="imagelogin">
+				<span></span>
+			</div>
+		</div>
+		<div class="col-lg-6 bg-dark d-flex align-items-center">
+			<div class="p-5 col-12 wow fadeInUp" data-wow-delay="0.2s">
+				<h5 class="section-title ff-secondary text-start text-primary fw-normal">Retours</h5>
+				<h1 class="text-white mb-4">votre réclammation</h1>
+				<div class="row g-3">
+					{{ form_start(form) }}
+					{{ form_errors(form.date) }}
+					{{ form_errors(form.commande_id) }}
+					{{ form_errors(form.statut) }}
+					{{ form_errors(form.description) }}
+					<div class="col-md-12  pb-3">
+						<div class="form-floating">
+							<select class="form-select" id="select2" name="{{ field_name(form.commande_id) }}">
+								{% for commande in commandes %}
+									<option value="{{commande.id}}">{{commande}}
+									</option>
+								{% endfor %}
+							</select>
+							<label for="select2">Commande</label>
+						</div>
+					</div>
+					<div class="row justify-content-center align-items-center pb-3">
+						<div class="col-md-6">
+							<div class="form-floating date" id="date3" data-target-input="nearest">
+								<input type="text" class="form-control datetimepicker-input" name="{{ field_name(form.date) }}" id="datetime" placeholder="Date & Heure" data-target="#date3" data-toggle="datetimepicker"/>
+								<label for="datetime">Date & Heure</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-floating">
+								<select class="form-select" id="select1" name="{{ field_name(form.statut) }}">
+									<option value="Non réglé">Non réglé</option>
+									<option value="En traitement">En traitement</option>
+									<option value="Réglé">Réglé</option>
+								</select>
+								<label for="select1">Statut</label>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="form-floating">
+							<textarea class="form-control" name="{{ field_name(form.description) }}" placeholder="Description" id="message" style="height: 100px"></textarea>
+							<label for="message">Description</label>
+						</div>
+					</div>
+
+					<div class="row justify-content-center align-items-center">
+						<div class="col-lg-6  py-3">
+							<button class="btn btn-primary w-100 py-3" type="submit">Soumettre</button>
+						</div>
+						<div class="col-lg-6 text-center py-3">
+							<a href="/compte">Annuler</a>
+						</div>
+					</div>
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Container Form Réparations End -->

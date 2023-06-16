@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}A propos
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header mb-5">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">A propos</h1>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					<li class="breadcrumb-item text-white active" aria-current="page">A propos</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+
+	<!-- About Start -->
+	<div class="container-xxl py-5">
+		<div class="container">
+			<div class="row g-5 align-items-center">
+				<div class="col-lg-6">
+					<div class="row g-3">
+						<div class="col-6 text-start">
+							<img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('assets/img/propos-1.png') }}">
+						</div>
+						<div class="col-6 text-start">
+							<img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="{{ asset('assets/img/propos-2.png') }}" style="margin-top: 25%;">
+						</div>
+						<div class="col-6 text-end">
+							<img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="{{ asset('assets/img/propos-3.png') }}">
+						</div>
+						<div class="col-6 text-end">
+							<img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="{{ asset('assets/img/propos-4.png') }}">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<h5 class="section-title ff-secondary text-start text-primary fw-normal">A propos de Nous</h5>
+					<h1 class="mb-4">Bienvenue sur SanarLav
+						<img src="{{ asset('assets/img/logo.png') }}" style="height:50px" alt="Logo"></h1>
+					<p class="mb-4">Nous offrons une solution pratique et rapide pour répondre aux besoins de nettoyage de vêtements, de linge de maison et d'autres articles textiles.
+					</p>
+					<p class="mb-4">Notre mission est de simplifier la vie de nos clients en leur fournissant des services de blanchisserie de haute qualité, avec un service rapide et fiable. Nous comprenons l'importance de vêtements et de textiles propres dans la vie quotidienne, que ce soit pour des raisons professionnelles, personnelles ou pour maintenir une hygiène optimale.</p>
+					<div class="row g-4 mb-4">
+						<div class="col-sm-6">
+							<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+								<h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">5</h1>
+								<div class="ps-4">
+									<p class="mb-0">Ans
+									</p>
+									<h6 class="text-uppercase mb-0">d'Experiences</h6>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="d-flex align-items-center border-start border-5 border-primary px-3">
+								<h1 class="flex-shrink-0 display-5 text-primary mb-0" data-toggle="counter-up">14</h1>
+								<div class="ps-4">
+									<p class="mb-0">Partenaires</p>
+									<h6 class="text-uppercase mb-0">De confiance</h6>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a class="btn btn-primary py-3 px-5 mt-2" href="">Lire plus</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- About End -->
+
+	<!-- Team Start -->
+	<div class="container-xxl pt-5 pb-3">
+		<div class="container">
+			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<h5 class="section-title ff-secondary text-center text-primary fw-normal">Membres de la Team</h5>
+				<h1 class="mb-5">Chefs de Service</h1>
+			</div>
+			<div class="row g-4">
+				<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="team-item text-center rounded overflow-hidden">
+						<div class="rounded-circle overflow-hidden m-4">
+							<img class="img-fluid" src="{{ asset('assets/img/team-1.jpg') }}" alt="">
+						</div>
+						<h5 class="mb-0">Ousmane Diop</h5>
+						<small>Directeur technique</small>
+						<div class="d-flex justify-content-center mt-2">
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-twitter"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="team-item text-center rounded overflow-hidden">
+						<div class="rounded-circle overflow-hidden m-4">
+							<img class="img-fluid" src="{{ asset('assets/img/team-2.jpg') }}" alt="">
+						</div>
+						<h5 class="mb-0">Aissatou Sarr</h5>
+						<small>Directrice commerciale</small>
+						<div class="d-flex justify-content-center mt-3">
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-twitter"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="team-item text-center rounded overflow-hidden">
+						<div class="rounded-circle overflow-hidden m-4">
+							<img class="img-fluid" src="{{ asset('assets/img/team-3.jpg') }}" alt="">
+						</div>
+						<h5 class="mb-0">Michel Nassalang</h5>
+						<small>Responsable informatique</small>
+						<div class="d-flex justify-content-center mt-3">
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-twitter"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+					<div class="team-item text-center rounded overflow-hidden">
+						<div class="rounded-circle overflow-hidden m-4">
+							<img class="img-fluid" src="{{ asset('assets/img/team-4.jpg') }}" alt="">
+						</div>
+						<h5 class="mb-0">Abdou Samath Seck</h5>
+						<small>Supérviseur général</small>
+						<div class="d-flex justify-content-center mt-3">
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-facebook-f"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-twitter"></i>
+							</a>
+							<a class="btn btn-square btn-primary mx-1" href="">
+								<i class="fab fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Team End -->
+
+	<!-- Testimonial Start -->
+	<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+		<div class="container">
+			<div class="text-center">
+				<h5 class="section-title ff-secondary text-center text-primary fw-normal">Témoignages</h5>
+				<h1 class="mb-5">Nos clients disent !!!</h1>
+			</div>
+			<div class="owl-carousel testimonial-carousel">
+				<div class="testimonial-item bg-transparent border rounded p-4">
+					<i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+					<p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+					<div class="d-flex align-items-center">
+						<img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('assets/img/testimonial-1.jpg') }}" style="width: 50px; height: 50px;">
+						<div class="ps-3">
+							<h5 class="mb-1">Abdel Daouda Diongue</h5>
+							<small>Eleveur</small>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-item bg-transparent border rounded p-4">
+					<i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+					<p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+					<div class="d-flex align-items-center">
+						<img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('assets/img/testimonial-2.jpg') }}" style="width: 50px; height: 50px;">
+						<div class="ps-3">
+							<h5 class="mb-1">Naomi Rachel Faye</h5>
+							<small>Sécrétaire</small>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-item bg-transparent border rounded p-4">
+					<i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+					<p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+					<div class="d-flex align-items-center">
+						<img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('assets/img/testimonial-3.jpg') }}" style="width: 50px; height: 50px;">
+						<div class="ps-3">
+							<h5 class="mb-1">Mouhamed Lamine Cissé</h5>
+							<small>Enseignant</small>
+						</div>
+					</div>
+				</div>
+				<div class="testimonial-item bg-transparent border rounded p-4">
+					<i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
+					<p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+					<div class="d-flex align-items-center">
+						<img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('assets/img/testimonial-4.jpg') }}" style="width: 50px; height: 50px;">
+						<div class="ps-3">
+							<h5 class="mb-1">Ndeye Fanta Mbaye</h5>
+							<small>Infirmière</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Testimonial End -->
+
+
+{% endblock %}

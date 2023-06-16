@@ -1,0 +1,532 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte employé
+{% endblock %}
+
+{% block body %}
+	<div class="container-xxl py-5 bg-dark hero-header mb-5">
+		<div class="container text-center my-5 pt-5 pb-4">
+			<h1 class="display-3 text-white mb-3 animated slideInDown">Compte Employé</h1>
+			<a href="/logout">
+				<i class="fa fa-power-off fa-1x text-primary"></i>
+			</a>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb justify-content-center text-uppercase">
+					<li class="breadcrumb-item">
+						<a href="/">Acceuil</a>
+					</li>
+					{% if app.user %}
+						<li class="breadcrumb-item text-white active" aria-current="page">{{app.user.prenom}}
+							{{app.user.nom}}</li>
+					{% endif %}
+				</ol>
+				{% if app.user %}
+					<p class="">{{app.user.email}}</p>
+				{% endif %}
+			</nav>
+		</div>
+	</div>
+
+
+	<!-- Actions Clients Start -->
+	<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<h1 class="mb-4 text-primary border-bottom border-4 border-primary">Gestion des clients
+					<img src="{{ asset('assets/img/logo.png') }}" style="height:50px" alt="Logo"></h1>
+				<h5 class="section-title ff-secondary text-center text-primary fw-normal">Les affaires</h5>
+				<h1 class="mb-5">Les réalisations sur SanarLav</h1>
+			</div>
+			<div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+				<ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+							<i class="fa fa-shopping-basket fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Les demandes</small>
+								<h6 class="mt-n1 mb-0">Commandes</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
+							<i class="fa fa-gavel fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Les retours</small>
+								<h6 class="mt-n1 mb-0">Réclammations</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+							<i class="fa fa-credit-card fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Les transactions</small>
+								<h6 class="mt-n1 mb-0">Paiements & Abonnement</h6>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-1" class="tab-pane fade show p-0 active">
+						<div class="row g-4 justify-content-center">
+							{% if commandesClients is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune commande de clients</h1>
+								</div>
+							{% else %}
+								<table>
+									<thead>
+										<tr class="align-items-center justify-content-center">
+											<th>Id</th>
+											<th>Date</th>
+											<th>Article</th>
+											<th>Statut</th>
+											<th>Client</th>
+											<th>Date mise à jour</th>
+											<th>actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for commandec in commandesClients %}
+											<tr>
+												<td>{{ commandec.id }}</td>
+												<td>{{ commandec.date ? commandec.date|date('Y-m-d H:i:s') : '' }}</td>
+												<td>{{ commandec.articleid }}</td>
+												<td>{{ commandec.statut }}</td>
+												<td>{{ commandec.clientid.prenom }}
+													{{ commandec.clientid.nom }}</td>
+												<td>{{ commandec.dateUpdate ? commandec.dateUpdate|date('Y-m-d H:i:s') : '' }}</td>
+												<td>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_commandes_show', {'id': commandec.id}) }}">Voir</a>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_commandes_edit', {'id': commandec.id}) }}">Editer</a>
+													<a href="{{ path('app_commandes_delete', {'id': commandec.id}) }}">
+														<i class="fa fa-trash fa-1x text-primary"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+					<div id="tab-2" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							{% if reparationsClients is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-4.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune réclamation de clients</h1>
+								</div>
+							{% else %}
+								<table>
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Description</th>
+											<th>Statut</th>
+											<th>Prix</th>
+											<th>Client</th>
+											<th>Date</th>
+											<th>actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for reparationc in reparationsClients %}
+											<tr>
+												<td>{{ reparationc.id }}</td>
+												<td>{{ reparationc.description }}</td>
+												<td>{{ reparationc.statut }}</td>
+												<td>{{ reparationc.prix }}</td>
+												<td>{{ reparationc.userid.prenom }}
+													{{ reparationc.userid.nom }}</td>
+												<td>{{ reparationc.date ? reparationc.date|date('Y-m-d H:i:s') : '' }}</td>
+												<td>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_reparations_show', {'id': reparationc.id}) }}">Voir</a>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_reparations_edit', {'id': reparationc.id}) }}">Editer</a>
+													<a href="{{ path('app_reparations_delete', {'id': reparationc.id}) }}">
+														<i class="fa fa-trash fa-1x text-primary"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+					<div id="tab-3" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Les transactions de clients</h5>
+							</div>
+							{% if transactionsClients is empty %}
+								<div class="col-8 mb-3">
+									<a class="btn btn-primary w-100 py-3" href="/transaction/new">Créer une transaction pour un client</a>
+								</div>
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune transaction de clients</h1>
+								</div>
+							{% else %}
+								<div class="col-8 mb-3">
+									<a class="btn btn-primary w-100 py-3" href="/transaction/new">Créer une transaction pour un client</a>
+								</div>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Modepaiement</th>
+											<th>Montant</th>
+											<th>Client</th>
+											<th>Date</th>
+											<th>actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for transactionc in transactionsClients %}
+											<tr>
+												<td>{{ transactionc.id }}</td>
+												<td>{{ transactionc.modepaiement }}</td>
+												<td>{{ transactionc.montant }}</td>
+												<td>{{ transactionc.clientid.prenom }}
+													{{ transactionc.clientid.nom }}</td>
+												<td>{{ transactionc.date ? transactionc.date|date('Y-m-d') : '' }}</td>
+												<td>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_transaction_show', {'id': transactionc.id}) }}">Voir</a>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_transaction_edit', {'id': transactionc.id}) }}">Editer</a>
+													<a href="{{ path('app_transaction_delete', {'id': transactionc.id}) }}">
+														<i class="fa fa-trash fa-1x text-primary"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Les abonnements des clients</h5>
+							</div>
+							{% if abonnementsClients is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucun abonnement de clients</h1>
+								</div>
+							{% else %}
+								<table>
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Datedebut</th>
+											<th>Datefin</th>
+											<th>Client</th>
+											<th>Type</th>
+											<th>Statut</th>
+											<th>Prix</th>
+											<th>actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for abonnementc in abonnementsClients %}
+											<tr>
+												<td>{{ abonnementc.id }}</td>
+												<td>{{ abonnementc.datedebut ? abonnementc.datedebut|date('Y-m-d') : '' }}</td>
+												<td>{{ abonnementc.datefin ? abonnementc.datefin|date('Y-m-d') : '' }}</td>
+												<td>{{ abonnementc.clientid.prenom }}
+													{{ abonnementc.clientid.nom }}</td>
+												<td>{{ abonnementc.type }}</td>
+												<td>{{ abonnementc.statut }}</td>
+												<td>{{ abonnementc.prix }}</td>
+												<td>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_abonnements_show', {'id': abonnementc.id}) }}">Voir</a>
+													<a class="border-end px-2 border-3 border-primary" href="{{ path('app_abonnements_edit', {'id': abonnementc.id}) }}">Editer</a>
+													<a href="{{ path('app_abonnements_delete', {'id': abonnementc.id}) }}">
+														<i class="fa fa-trash fa-1x text-primary"></i>
+													</a>
+												</td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Actions Clients End -->
+
+<!-- Actions Clients Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+			<h5 class="section-title ff-secondary text-center text-primary fw-normal">Les Interactions</h5>
+			<h1 class="mb-5">Les échanges sur SanarLav</h1>
+		</div>
+		<div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+			<ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+				<li class="nav-item">
+					<a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-4">
+						<i class="fa fa-envelope fa-2x text-primary" aria-hidden="true"></i>
+						<div class="ps-3">
+							<small class="text-body">Les contacts</small>
+							<h6 class="mt-n1 mb-0">Messages & Informations</h6>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div id="tab-4" class="tab-pane fade show p-0 active">
+					<div class="row g-4 justify-content-center">
+						{% if contacts is empty %}
+							<div class="col-8 row align-items-center justify-content-center">
+								<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+								<h1 class="mb-5 text-secondary">Aucun message ou information de visiteurs</h1>
+							</div>
+						{% else %}
+							<table>
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Sujet</th>
+										<th>Texte</th>
+										<th>Email</th>
+										<th>Nom</th>
+										<th>Date</th>
+										<th>actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for contact in contacts %}
+										<tr>
+											<td>{{ contact.id }}</td>
+											<td>{{ contact.sujet }}</td>
+											<td>{{ contact.texte|slice(0, 40) }}
+												...</td>
+											<td>{{ contact.email }}</td>
+											<td>{{ contact.nom }}</td>
+											<td>{{ contact.date ? contact.date|date('Y-m-d H:i:s') : '' }}</td>
+											<td>
+												<a class="border-end px-2 border-3 border-primary" href="{{ path('app_contacts_show', {'id': contact.id}) }}">Voir</a>
+												<a href="{{ path('app_contacts_edit', {'id': contact.id}) }}">
+													<i class="fa fa-trash fa-1x text-primary"></i>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Actions Clients End -->
+
+
+
+	<!-- Actions Start -->
+	<div class="container-xxl py-5">
+		<div class="container">
+			<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+				<h1 class="mb-4 text-primary border-bottom border-4 border-primary">Gestion de mon compte
+					<img src="{{ asset('assets/img/logo.png') }}" style="height:50px" alt="Logo"></h1>
+				<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes affaires</h5>
+				<h1 class="mb-5">Mes actions sur SanarLav</h1>
+			</div>
+			<div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+				<ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-5">
+							<i class="fa fa-shopping-basket fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes demandes</small>
+								<h6 class="mt-n1 mb-0">Commandes</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-5">
+							<i class="fa fa-gavel fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes retours</small>
+								<h6 class="mt-n1 mb-0">Réclammations</h6>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-7">
+							<i class="fa fa-credit-card fa-2x text-primary"></i>
+							<div class="ps-3">
+								<small class="text-body">Mes transactions</small>
+								<h6 class="mt-n1 mb-0">Paiements & Abonnement</h6>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div id="tab-5" class="tab-pane fade show p-0 active">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/commandes/new">Faire une commande</a>
+							</div>
+							{% if commandes is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune commande</h1>
+								</div>
+							{% else %}
+								{% for commande in commandes %}
+									<div class="col-lg-6 border-end border-5 border-primary">
+										<div class="d-flex align-items-center">
+											<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-1.png') }}" alt="" style="width: 80px;">
+											<div class="w-100 d-flex flex-column text-start ps-4">
+												<h5 class="d-flex justify-content-between border-bottom pb-2">
+													<span class="border-end border-2 border-secondary">Commande -
+														{{commande.date| date('d-m-Y')}}</span>
+													<span class="text-primary">{{commande.articleid}}</span>
+												</h5>
+												<small class="fst-italic">{{commande.statut}}</small>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+						</div>
+					</div>
+					<div id="tab-6" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/reparations/new">Faire une réclamation</a>
+							</div>
+							{% if reparations is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-4.png') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune réclamation</h1>
+								</div>
+							{% else %}
+								{% for reparation in reparations %}
+									<div class="col-lg-6 border-end border-5 border-primary">
+										<div class="d-flex align-items-center">
+											<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/propos-4.png') }}" alt="" style="width: 80px;">
+											<div class="w-100 d-flex flex-column text-start ps-4">
+												<h5 class="d-flex justify-content-between border-bottom pb-2">
+													<span class="border-end border-2 border-secondary">Réclamation -
+														{{reparation.date| date('d-m-Y')}}</span>
+													<span class="text-primary">{{reparation.commandeid}}
+														FCFA</span>
+												</h5>
+												<small class="fst-italic d-flex justify-content-between">
+													<span>{{reparation.description}}</span>
+													<span>{{reparation.statut}}</span>
+												</small>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+						</div>
+					</div>
+					<div id="tab-7" class="tab-pane fade show p-0">
+						<div class="row g-4 justify-content-center">
+							<div class="col-8">
+								<a class="btn btn-primary w-100 py-3" href="/abonnements/new">Prendre un abonnement ...</a>
+							</div>
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes transactions</h5>
+							</div>
+							{% if transactions is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucune transaction</h1>
+								</div>
+							{% else %}
+								{% for transaction in transactions %}
+									<div class="col-lg-6 border-end border-5 border-primary">
+										<div class="d-flex align-items-center">
+											<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+											<div class="w-100 d-flex flex-column text-start ps-4">
+												<h5 class="d-flex justify-content-between border-bottom pb-2">
+													<span class="border-end border-2 border-secondary">Transaction -
+														{{transaction.date| date('d-m-Y')}}</span>
+													<span class="text-primary">{{transaction.montant}}</span>
+												</h5>
+												<small class="fst-italic">{{transaction.modepaiement}}</small>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+							<div class="text-center" data-wow-delay="0.1s">
+								<h5 class="section-title ff-secondary text-center text-primary fw-normal">Mes abonnements</h5>
+							</div>
+							{% if abonnements is empty %}
+								<div class="col-8 row align-items-center justify-content-center">
+									<img class="col-12 flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+									<h1 class="mb-5 text-secondary">Aucun abonnement</h1>
+								</div>
+							{% else %}
+								{% for abonnement in abonnements %}
+									<div class="col-lg-6 border-end border-5 border-primary">
+										<div class="d-flex align-items-center">
+											<img class="flex-shrink-0 img-fluid rounded" src="{{ asset('assets/img/payement.jpg') }}" alt="" style="width: 80px;">
+											<div class="w-100 d-flex flex-column text-start ps-4">
+												<h5 class="d-flex justify-content-between border-bottom pb-2">
+													<span class="border-end border-2 border-secondary">
+														{{abonnement}}</span>
+													<span class="text-primary">{{abonnement.type}}</span>
+												</h5>
+												<small class="fst-italic">{{abonnement.statut}}</small>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Actions End -->
+
+	{% block stuletable %}
+		<style>
+			table {
+				background: #012B39;
+				border-radius: 0.25em;
+				border-collapse: collapse;
+				margin: 1em;
+				align-items: center;
+				justify-content: center;
+			}
+			th {
+				border-bottom: 1px solid #364043;
+				color: #E2B842;
+				font-size: 0.85em;
+				font-weight: 600;
+				padding: 0.5em 1em;
+				text-align: left;
+			}
+			td {
+				color: #fff;
+				font-weight: 400;
+				padding: 0.65em 1em;
+			}
+			.disabled td {
+				color: #4F5F64;
+			}
+			tbody tr {
+				transition: background 0.25s ease;
+			}
+			tbody tr:hover {
+				background: #014055;
+			}
+		</style>
+	{% endblock %}
+
+{% endblock %}
